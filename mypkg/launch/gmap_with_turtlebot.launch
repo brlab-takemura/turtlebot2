@@ -1,0 +1,37 @@
+
+<launch>
+	<!-- Turtlebot起動 -->
+	<include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+	
+	<!-- laser起動 -->
+	<arg name="laser" default="urg" />
+	
+	<group if="$(eval laser=='rplidar_s1')">
+		<include file="$(find rplidar_ros)/launch/rplidar_s1.launch"/>
+	</group>
+	<group if="$(eval laser=='urg')">
+		<include file="$(find urg_node)/launch/urg.launch" />
+	</group>
+	
+	<!-- gmapping起動(odom指定) -->
+	<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+		<param name="odom_frame" type="string" value="odom"/>  
+	</node>
+	
+	<!-- rviz_with_robot起動 -->
+	<include file="$(find turtlebot_le2i)/launch/view_robot_rplidar.launch"/>
+	
+	<!-- teleop起動 -->
+	<arg name="mode" default="joy" />
+	
+	<group if="$(eval mode=='joy')">
+		<include file="$(find turtlebot_teleop)/launch/joy_teleop.launch"/>
+	</group>
+	<group if="$(eval mode=='key')">
+		<include file="$(find turtlebot_teleop)/launch/keyboard_teleop.launch"/>
+	</group>
+	
+	<!-- 	tfの起動 -->
+	<node pkg="tf" type="static_transform_publisher" name="base2laser" args="0 0.18 0 3.14 0 0 base_link laser 100" />
+	
+</launch>

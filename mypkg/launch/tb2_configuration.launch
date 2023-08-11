@@ -1,0 +1,8 @@
+<launch>
+ <!-- laser起動 -->
+ <include file="$(find urg_node)/launch/urg.launch" />
+ <!-- odom起動 -->
+ <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+ <!-- tf起動 -->
+ <node pkg="tf" type="static_transform_publisher" name="base2laser" args="0 0.18 0 3.14 0 0 base_link laser 100" />
+</launch>

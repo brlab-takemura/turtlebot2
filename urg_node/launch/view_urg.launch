@@ -1,0 +1,10 @@
+<!--
+  Used for visualising urg in action.  
+  
+  It requires urg.launch.
+ -->
+<launch>
+  <include file="$(find urg_node)/launch/urg.launch" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find urg_node)/rviz/urg.rviz" />
+</launch>

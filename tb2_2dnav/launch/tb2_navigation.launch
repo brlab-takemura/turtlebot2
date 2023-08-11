@@ -1,0 +1,11 @@
+<launch>
+ <!--- Run tb2 (a robot moved by "cmd_vel", output "scan" & "odom") -->    
+ <include file="$(find tb2_2dnav)/launch/include/tb2_configuration.launch" />
+ 
+ <!--- Run map_server & amcl & move_base) -->    
+ <include file="$(find tb2_2dnav)/launch/include/move_base.launch" />
+ 
+ <!--- rviz) --> 
+ <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tb2_2dnav)/rviz/navigation.rviz" />
+
+</launch>
